@@ -1,6 +1,6 @@
 [submodule "rtems"]
 	path = rtems
-	url = git@github.com:hahchenchen/rtems.git
+	url = git@github.com:hahchenchen/rtems-official.git
 [submodule "rtems-libbsd"]
 	path = rtems-libbsd
 	url = git@github.com:hahchenchen/rtems-libbsd.git
