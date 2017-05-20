@@ -26,6 +26,7 @@ cd "${PROJECTDIR}"
 "${SCRIPTDIR}/build-toolchain.sh"
 "${SCRIPTDIR}/build-u-boot.sh"
 "${SCRIPTDIR}/build-newfs_msdos.sh"
+"${SCRIPTDIR}/build-partition.sh"
 "${SCRIPTDIR}/build-mtools.sh"
 cd "${RTEMS_SOURCE_DIR}"
 ./bootstrap
