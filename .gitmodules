@@ -7,3 +7,6 @@
 [submodule "rtems-source-builder"]
 	path = rtems-source-builder
 	url = git://git.rtems.org/rtems-source-builder.git
+[submodule "u-boot"]
+	path = u-boot
+	url = git://git.denx.de/u-boot.git
