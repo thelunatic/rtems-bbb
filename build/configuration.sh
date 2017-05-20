@@ -11,6 +11,7 @@ PREFIX="${PROJECTDIR}/rtems-install/rtems-${RTEMS_VERSION}/"
 RTEMS_SOURCE_DIR="${PROJECTDIR}/rtems"
 LIBBSD_SOURCE_DIR="${PROJECTDIR}/rtems-libbsd"
 U_BOOT_SOURCE_DIR="${PROJECTDIR}/u-boot"
+NEWFS_MSDOS_SOURCE_DIR="${PROJECTDIR}/newfs_msdos"
 
 BSP_CONFIG_OPT=( \
 	"--enable-tests=samples" \
