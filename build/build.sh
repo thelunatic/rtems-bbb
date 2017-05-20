@@ -24,6 +24,8 @@ git submodule update rtems_waf
 # build parts
 cd "${PROJECTDIR}"
 "${SCRIPTDIR}/build-toolchain.sh"
+"${SCRIPTDIR}/build-u-boot.sh"
+"${SCRIPTDIR}/build-newfs_msdos.sh"
 cd "${RTEMS_SOURCE_DIR}"
 ./bootstrap
 cd "${PROJECTDIR}"

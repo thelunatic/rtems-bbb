@@ -18,6 +18,11 @@ export PATH="${PREFIX}/bin:${PATH}"
 # Build tools using source builder
 cd "${U_BOOT_SOURCE_DIR}"
 make -j `nproc` PYTHON=python2 CROSS_COMPILE=${TARGET}- mrproper
-make -j `nproc` PYTHON=python2 CROSS_COMPILE=${TARGET}- omap3_beagle_config
+make -j `nproc` PYTHON=python2 CROSS_COMPILE=${TARGET}- ${UBOOT_CONFIG}_config
 make -j `nproc` PYTHON=python2 CROSS_COMPILE=${TARGET}-
-make -j `nproc` PYTHON=python2 CROSS_COMPILE=${TARGET}- tools
+
+# install files
+mkdir -p ${PREFIX}/uboot/${UBOOT_CONFIG}/
+cp MLO u-boot.img ${PREFIX}/uboot/${UBOOT_CONFIG}/
+mkdir -p ${PREFIX}/bin
+cp tools/mkimage ${PREFIX}/bin
