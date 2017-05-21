@@ -16,4 +16,5 @@ NEWFS_MSDOS_SOURCE_DIR="${PROJECTDIR}/newfs_msdos"
 
 BSP_CONFIG_OPT=( \
 	"--enable-tests=samples" \
-	"--disable-networking")
+	"--disable-networking" \
+	"CONSOLE_POLLED=1")
