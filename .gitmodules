@@ -1,9 +1,9 @@
 [submodule "rtems"]
 	path = rtems
-	url = git@github.com:hahchenchen/rtems-official.git
+	url = git://git.rtems.org/rtems.git
 [submodule "rtems-libbsd"]
 	path = rtems-libbsd
-	url = git@github.com:hahchenchen/rtems-libbsd.git
+	url = git://git.rtems.org/rtems-libbsd.git
 [submodule "rtems-source-builder"]
 	path = rtems-source-builder
 	url = git@gitlab.com:c-mauderer/rtems-source-builder.git
