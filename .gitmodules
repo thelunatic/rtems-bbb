@@ -6,7 +6,7 @@
 	url = git@github.com:hahchenchen/rtems-libbsd.git
 [submodule "rtems-source-builder"]
 	path = rtems-source-builder
-	url = git://git.rtems.org/rtems-source-builder.git
+	url = git@gitlab.com:c-mauderer/rtems-source-builder.git
 [submodule "u-boot"]
 	path = u-boot
 	url = git://git.denx.de/u-boot.git
