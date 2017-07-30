@@ -22,6 +22,6 @@ source "${SCRIPTDIR}/configuration.sh"
 BUILD_DIR="${PROJECTDIR}/build/b-$BSP_NAME"
 export PATH="${PREFIX}/bin:${PATH}"
 
-export PREPROMPT="%B(GRISP-RTEMS)%b "
+export PREPROMPT="%B(RTEMS)%b "
 
 ${SHELL}
