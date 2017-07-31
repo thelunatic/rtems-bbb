@@ -63,4 +63,4 @@ then
 fi
 cd "${PROJECTDIR}"
 "${SCRIPTDIR}/build-bsp.sh" clean install
-"${SCRIPTDIR}/build-libbsd.sh"
+"${SCRIPTDIR}/build-libbsd.sh" clean # install

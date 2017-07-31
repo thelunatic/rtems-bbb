@@ -21,3 +21,4 @@ CTAGOPTS="-a -f ${PROJECTDIR}/tags --extra=+fq --recurse=yes"
 
 ctags ${CTAGOPTS} "${RTEMS_SOURCE_DIR}"
 ctags ${CTAGOPTS} --exclude="freebsd-org" "${LIBBSD_SOURCE_DIR}"
+#ctags ${CTAGOPTS} "${LIBBSD_SOURCE_DIR}"
