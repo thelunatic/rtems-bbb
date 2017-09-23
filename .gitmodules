@@ -10,9 +10,3 @@
 [submodule "u-boot"]
 	path = u-boot
 	url = git://git.denx.de/u-boot.git
-[submodule "GSOC-test-application"]
-	path = GSOC-test-application
-	url = git@github.com:hahchenchen/GSOC-test-application.git
-[submodule "hostap"]
-	path = hostap
-	url = git://w1.fi/hostap.git
