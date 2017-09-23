@@ -10,3 +10,6 @@
 [submodule "u-boot"]
 	path = u-boot
 	url = git://git.denx.de/u-boot.git
+[submodule "device-tree-rebasing"]
+	path = device-tree-rebasing
+	url = git://xenbits.xen.org/people/ianc/device-tree-rebasing.git
