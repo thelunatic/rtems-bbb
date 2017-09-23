@@ -1,2 +1,3 @@
 rtems-install
 b-beagleboneblack
+build/rsb-arm-*
