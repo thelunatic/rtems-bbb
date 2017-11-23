@@ -10,12 +10,12 @@ SCRIPTDIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 PROJECTDIR="${SCRIPTDIR}/../"
 
 # Configuration
-source "${SCRIPTDIR}/configuration.sh"
+. "${SCRIPTDIR}/configuration.sh"
 export PATH="${PREFIX}/bin:${PATH}"
 
 cd "${LIBBSD_SOURCE_DIR}"
 
-if [ "$BSP_NAME" == "atsamv" ]
+if [ "$BSP_NAME" = "atsamv" ]
 then
 	# ugly workaround to build the tests with external RAM
 	if [ ! -e "${PREFIX}/${TARGET}/${BSP_NAME}/lib/linkcmds.org" ]
@@ -64,7 +64,7 @@ then
 	waf install
 fi
 
-if [ "$BSP_NAME" == "atsamv" ]
+if [ "$BSP_NAME" = "atsamv" ]
 then
 	# part 2 of ugly workaround to build the tests with external RAM
 	mv "${PREFIX}/${TARGET}/${BSP_NAME}/lib/linkcmds.org" \

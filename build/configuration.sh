@@ -16,7 +16,8 @@ U_BOOT_SOURCE_DIR="${PROJECTDIR}/u-boot"
 NEWFS_MSDOS_SOURCE_DIR="${PROJECTDIR}/newfs_msdos"
 DEVICETREE_DIR="${PROJECTDIR}/device-tree-rebasing"
 
-BSP_CONFIG_OPT=( \
-	"--enable-tests=samples" \
-	"--disable-networking" \
-	"CONSOLE_POLLED=1")
+BSP_CONFIG_OPT="
+	--enable-tests=samples
+	--disable-networking
+	CONSOLE_POLLED=1
+	"

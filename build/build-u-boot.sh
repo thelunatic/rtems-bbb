@@ -10,12 +10,12 @@ SCRIPTDIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 PROJECTDIR="${SCRIPTDIR}/../"
 
 # configuration
-source "${SCRIPTDIR}/configuration.sh"
+. "${SCRIPTDIR}/configuration.sh"
 LOGDIR="${PROJECTDIR}/build/"
 NOW="$(date +%Y%m%d_%H%M%S)"
 export PATH="${PREFIX}/bin:${PATH}"
 
-# Build tools using source builder
+# Build
 cd "${U_BOOT_SOURCE_DIR}"
 make -j `nproc` PYTHON=python2 CROSS_COMPILE=${TARGET}- mrproper
 make -j `nproc` PYTHON=python2 CROSS_COMPILE=${TARGET}- ${UBOOT_CONFIG}_config

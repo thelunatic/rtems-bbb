@@ -9,7 +9,7 @@ set -e -u
 SCRIPTDIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 PROJECTDIR="${SCRIPTDIR}/../"
 
-source "${SCRIPTDIR}/configuration.sh"
+. "${SCRIPTDIR}/configuration.sh"
 BUILD_DIR="${PROJECTDIR}/build/b-$BSP_NAME"
 export PATH="${PREFIX}/bin:${PATH}"
 
@@ -64,4 +64,4 @@ then
 fi
 cd "${PROJECTDIR}"
 "${SCRIPTDIR}/build-bsp.sh" clean install
-"${SCRIPTDIR}/build-libbsd.sh" clean # install
+"${SCRIPTDIR}/build-libbsd.sh" clean install
