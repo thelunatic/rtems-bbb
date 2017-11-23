@@ -50,7 +50,7 @@ if [ $DO_CLEAN -ne 0 ]
 then
 	if [ -e build ]
 	then
-		waf clean
+		rm -r build
 	fi
 fi
 
