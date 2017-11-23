@@ -1,0 +1,47 @@
+RTEMS for Beagle Bone Black
+===========================
+:toc:
+
+== Overview
+
+This repository contains everything that is necessary to run an RTEMS
+application on the Beagle Bone Black. It includes the libbsd for USB, SD and
+WiFi support.
+
+Currently supported WiFi adapters are the RT8188EU and RT8188CUS based ones.
+
+Building was tested on Arch GNU/Linux and OpenSUSE GNU/Linux.
+
+This repository is heavily based on the build scripts for
+http://www.grisp.org[GRiSP] - a project that runs a Erlang VM on RTEMS. See the
+https://github.com/grisp/grisp-software/[grisp-software] repository for the
+original scripts.
+
+Note that a lot of hardware support for the Beagle Bone Black has been done
+during GSoC. A lot of thanks to the students offering their time for RTEMS.
+Related projects from the last years are the one from
+https://devel.rtems.org/wiki/GSOC/2016/Imrovebsp4bbb[Punit Vara (GSoC 2016)].
+https://devel.rtems.org/wiki/GSoC/2017/BeagleboneBSPProject[Sichen Zhao (GSoC2017)].
+
+== Building
+
+=== Toolchain and Libraries
+
+To build all necessary tools and libraries just call `./build/build.sh`.
+
+=== Application
+
+After building the toolchain, you can build the WiFi sample application. To do
+that, change into the `wifi-sample` directory and call `make`.
+
+You'll get a `b-beagleboneblack/wifi-sample_sdcard.img` that can be written to a
+SD-Card using `dd` or some similar tool. Mount the SD card on your computer and
+create a `wpa_supplicant.conf` in the root directory of the SD. An example can
+be found in `wifi-sample/wpa_supplicant.conf`.
+
+After that you can just put the SD-Card into a BBB (with recent U-Boot), connect
+a RT8188EU based USB WiFi dongle and boot the system. There will be a shell on
+the https://elinux.org/Beagleboard:BeagleBone_Black_Serial[serial port] of the
+BBB. After the connection is established (take a look whether you got an IP via
+DHCP with `ifconfig`) you can start an ftp-server using the `startftp` command
+and do some file transfers.
