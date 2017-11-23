@@ -20,7 +20,7 @@ original scripts.
 Note that a lot of hardware support for the Beagle Bone Black has been done
 during GSoC. A lot of thanks to the students offering their time for RTEMS.
 Related projects from the last years are the one from
-https://devel.rtems.org/wiki/GSOC/2016/Imrovebsp4bbb[Punit Vara (GSoC 2016)].
+https://devel.rtems.org/wiki/GSOC/2016/Imrovebsp4bbb[Punit Vara (GSoC 2016)] and
 https://devel.rtems.org/wiki/GSoC/2017/BeagleboneBSPProject[Sichen Zhao (GSoC2017)].
 
 == Building
