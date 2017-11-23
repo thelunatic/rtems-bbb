@@ -4,9 +4,9 @@
 
 BSP_NAME="beagleboneblack"
 RTEMS_CPU="arm"
-RTEMS_VERSION="4.12"
+RTEMS_VERSION="5"
 TARGET="${RTEMS_CPU}-rtems${RTEMS_VERSION}"
-PREFIX="${PROJECTDIR}/rtems-install/rtems-${RTEMS_VERSION}/"
+PREFIX="${PROJECTDIR}/rtems-install/rtems/${RTEMS_VERSION}/"
 UBOOT_CONFIG="am335x_evm"
 DTB_FILE="src/arm/am335x-boneblack.dtb"
 
