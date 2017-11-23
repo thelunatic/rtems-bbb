@@ -50,12 +50,12 @@ UENV=uEnv.txt
 rm -rf $TMPDIR
 mkdir -p $TMPDIR
 
-if [ $# -ne 1 ]
-then	echo "Usage: $0 <RTEMS executable>"
+if [ $# -ne 2 ]
+then	echo "Usage: $0 <RTEMS executable> <image name>"
 	exit 1
 fi
 
-executable=$2
+executable=$1
 ubootcfg=am335x_evm
 app=rtems-app.img
 base=`basename $executable`
@@ -65,7 +65,7 @@ then	echo "Expecting RTEMS executable as arg; $executable not found."
 	exit 1
 fi
 
-IMG=${base}-sdcard.img
+IMG=$2
 
 # Make an empty image
 dd if=/dev/zero of=$IMG bs=512 seek=`expr $SIZE - 1` count=1
@@ -75,17 +75,17 @@ dd if=/dev/zero of=$FATIMG bs=512 seek=`expr $FATSIZE - 1` count=1
 newfs_msdos -r 1 -m 0xf8 -c 4 -F16  -h 64 -u 32 -S 512 -s $FATSIZE -o 0 ./$FATIMG
 
 # Prepare the executable.
-arm-rtems4.12-objcopy $executable -O binary $TMPDIR/${base}.bin
+arm-rtems5-objcopy $executable -O binary $TMPDIR/${base}.bin
 gzip -9 $TMPDIR/${base}.bin
 mkimage -A arm -O linux -T kernel -a 0x80000000 -e 0x80000000 -n RTEMS -d $TMPDIR/${base}.bin.gz $TMPDIR/$app
 echo "setenv bootdelay 5
 uenvcmd=run boot
-boot=fatload mmc 0 0x80800000 $app ; fatload mmc 0 0x88000000 ${DTB_FILE} ; bootm 0x80800000 - 0x88000000" >$TMPDIR/$UENV
+boot=fatload mmc 0 0x80800000 $app ; fatload mmc 0 0x88000000 ${DTB_INSTALL_NAME} ; bootm 0x80800000 - 0x88000000" >$TMPDIR/$UENV
 
 # Copy the uboot and app image onto the FAT image
 mcopy -bsp -i $FATIMG $PREFIX/uboot/$ubootcfg/MLO ::MLO
 mcopy -bsp -i $FATIMG $PREFIX/uboot/$ubootcfg/u-boot.img ::u-boot.img
-mcopy -bsp -i $FATIMG $PREFIX/fdt/${DTB_FILE} ::${DTB_FILE}
+mcopy -bsp -i $FATIMG $PREFIX/fdt/${DTB_INSTALL_NAME} ::${DTB_INSTALL_NAME}
 mcopy -bsp -i $FATIMG $TMPDIR/$app ::$app
 mcopy -bsp -i $FATIMG $TMPDIR/$UENV ::$UENV
 

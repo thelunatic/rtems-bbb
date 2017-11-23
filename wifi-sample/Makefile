@@ -13,7 +13,7 @@ APP_PIECES = $(wildcard *.c)
 APP_OBJS = $(APP_PIECES:%.c=$(BUILDDIR)/%.o)
 APP_DEPS = $(APP_PIECES:%.c=$(BUILDDIR)/%.d)
 
-all: $(BUILDDIR) $(APP).exe
+all: $(BUILDDIR) $(APP).exe $(APP)_sdcard.img
 
 $(BUILDDIR):
 	mkdir $(BUILDDIR)
@@ -21,8 +21,8 @@ $(BUILDDIR):
 $(APP).exe: $(APP_OBJS)
 	$(CCLINK) $^ -lbsd -lm -o $@
 
-$(APP).bin: $(APP).exe
-	$(OBJCOPY) -O binary $^ $@
+$(APP)_sdcard.img: $(APP).exe
+	$(IMAGE_CREATOR) $< $@
 
 clean:
 	rm -rf $(BUILDDIR)

@@ -9,6 +9,7 @@ TARGET="${RTEMS_CPU}-rtems${RTEMS_VERSION}"
 PREFIX="${PROJECTDIR}/rtems-install/rtems/${RTEMS_VERSION}/"
 UBOOT_CONFIG="am335x_evm"
 DTB_FILE="src/arm/am335x-boneblack.dtb"
+DTB_INSTALL_NAME="am335x-boneblack.dtb"
 
 RTEMS_SOURCE_DIR="${PROJECTDIR}/rtems"
 LIBBSD_SOURCE_DIR="${PROJECTDIR}/rtems-libbsd"
