@@ -1,4 +1,4 @@
-RTEMS_ROOT ?= $(PWD)/../rtems-install/rtems/5
+RTEMS_ROOT ?= $(PWD)/../../install/rtems/5
 RTEMS_BSP ?= beagleboneblack
 
 IMAGE_CREATOR ?= $(PWD)/../build/create-sdcardimage.sh

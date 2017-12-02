@@ -1,4 +1,4 @@
-RTEMS_ROOT ?= $(PWD)/../rtems-install/rtems-4.12
+RTEMS_ROOT ?= $(PWD)/../../install/rtems/5
 RTEMS_BSP ?= beagleboneblack
 
 include $(RTEMS_ROOT)/make/custom/$(RTEMS_BSP).mk

@@ -18,7 +18,7 @@ export PATH="${PREFIX}/bin:${PATH}"
 export PREFIX
 
 # Build
-cd "${PROJECTDIR}/partition"
+cd "${PARTITION_DIR}"
 make partition
 mkdir -p ${PREFIX}/bin/
 mv partition ${PREFIX}/bin/

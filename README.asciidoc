@@ -23,16 +23,32 @@ Related projects from the last years are the one from
 https://devel.rtems.org/wiki/GSOC/2016/Imrovebsp4bbb[Punit Vara (GSoC 2016)] and
 https://devel.rtems.org/wiki/GSoC/2017/BeagleboneBSPProject[Sichen Zhao (GSoC2017)].
 
+== Organization
+
+This repository is organized as follows:
+
+- `apps`: Various RTEMS applications.
+- `build`: Scripts that help building RTEMS and all tools.
+- `Datasheets`: Datasheets that are used during development.
+- `debug`: Scripts to start a debugger. Currently only Segger is supported.
+- `libs`: Libraries like RTEMS or libbsd.
+- `tools`: Tools and other stuff that is generally useful (for example for
+  generating a SD card image)
+- `install` (generated): All tools and libraries will be installed in this
+  folder.
+
 == Building
 
 === Toolchain and Libraries
 
-To build all necessary tools and libraries just call `./build/build.sh`.
+To build all necessary tools and libraries just call `./build/build.sh`. This
+will install all that is necessary to build an application into the `install`
+folder.
 
 === Application
 
 After building the toolchain, you can build the WiFi sample application. To do
-that, change into the `wifi-sample` directory and call `make`.
+that, change into the `apps/wifi-sample` directory and call `make`.
 
 You'll get a `b-beagleboneblack/wifi-sample_sdcard.img` that can be written to a
 SD-Card using `dd` or some similar tool. Mount the SD card on your computer and

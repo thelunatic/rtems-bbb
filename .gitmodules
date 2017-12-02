@@ -1,15 +1,15 @@
 [submodule "rtems"]
-	path = rtems
+	path = libs/rtems
 	url = git@gitlab.com:c-mauderer/rtems.git
 [submodule "rtems-libbsd"]
-	path = rtems-libbsd
+	path = libs/rtems-libbsd
 	url = git@gitlab.com:c-mauderer/rtems-libbsd.git
 [submodule "rtems-source-builder"]
-	path = rtems-source-builder
+	path = tools/rtems-source-builder
 	url = git@gitlab.com:c-mauderer/rtems-source-builder.git
 [submodule "u-boot"]
-	path = u-boot
+	path = tools/u-boot
 	url = git://git.denx.de/u-boot.git
 [submodule "device-tree-rebasing"]
-	path = device-tree-rebasing
+	path = tools/device-tree-rebasing
 	url = git://xenbits.xen.org/people/ianc/device-tree-rebasing.git

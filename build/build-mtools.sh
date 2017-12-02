@@ -18,13 +18,13 @@ export PATH="${PREFIX}/bin:${PATH}"
 export PREFIX
 
 # Build mtools
-cd ${PROJECTDIR}/mtools
+cd ${MTOOLS_DIR}
 [[ -e build ]] && rm -rf build
 mkdir build
 cd build
-tar xaf ${PROJECTDIR}/mtools/mtools-4.0.18.tar.bz2
+tar xaf ${MTOOLS_DIR}/mtools-4.0.18.tar.bz2
 cd mtools-4.0.18
-patch -p1 -i ${PROJECTDIR}/mtools/mtools-4.0.18.diff
+patch -p1 -i ${MTOOLS_DIR}/mtools-4.0.18.diff
 
 ./configure --prefix=${PREFIX}
 make -j `nproc` all

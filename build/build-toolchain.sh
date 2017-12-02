@@ -16,7 +16,7 @@ NOW="$(date +%Y%m%d_%H%M%S)"
 export PATH="${PREFIX}/bin:${PATH}"
 
 # Build tools using source builder
-cd "${PROJECTDIR}/rtems-source-builder"
+cd "${RSB_DIR}"
 ./source-builder/sb-check
 if [ $? -ne 0 ]
 then
@@ -24,7 +24,7 @@ then
 	exit 1
 fi
 
-cd "${PROJECTDIR}/rtems-source-builder/rtems"
+cd "${RSB_DIR}/rtems"
 ../source-builder/sb-set-builder \
 	--log="${LOGDIR}/rsb-${RTEMS_CPU}-${NOW}.log" \
 	--prefix="${PREFIX}" \
