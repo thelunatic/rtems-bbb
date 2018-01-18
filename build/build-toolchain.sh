@@ -28,9 +28,9 @@ cd "${RSB_DIR}/rtems"
 ../source-builder/sb-set-builder \
 	--log="${LOGDIR}/rsb-${RTEMS_CPU}-${NOW}.log" \
 	--prefix="${PREFIX}" \
-	--no-clean \
 	--without-rtems \
 	"${RTEMS_VERSION}/rtems-${RTEMS_CPU}"
+#	--no-clean \
 
 # install waf
 mkdir -p "${PREFIX}/bin/"
