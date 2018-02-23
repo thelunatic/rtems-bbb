@@ -1,12 +1,12 @@
 [submodule "rtems"]
 	path = libs/rtems
-	url = git@gitlab.com:c-mauderer/rtems.git
+	url = ../rtems.git
 [submodule "rtems-libbsd"]
 	path = libs/rtems-libbsd
-	url = git@gitlab.com:c-mauderer/rtems-libbsd.git
+	url = ../rtems-libbsd.git
 [submodule "rtems-source-builder"]
 	path = tools/rtems-source-builder
-	url = git@gitlab.com:c-mauderer/rtems-source-builder.git
+	url = ../rtems-source-builder.git
 [submodule "u-boot"]
 	path = tools/u-boot
 	url = git://git.denx.de/u-boot.git
