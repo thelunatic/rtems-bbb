@@ -1,15 +1,20 @@
 [submodule "rtems"]
 	path = libs/rtems
 	url = ../rtems.git
+	branch = master
 [submodule "rtems-libbsd"]
 	path = libs/rtems-libbsd
 	url = ../rtems-libbsd.git
+	branch = master
 [submodule "rtems-source-builder"]
 	path = tools/rtems-source-builder
 	url = ../rtems-source-builder.git
+	branch = master
 [submodule "u-boot"]
 	path = tools/u-boot
 	url = git://git.denx.de/u-boot.git
+	branch = master
 [submodule "device-tree-rebasing"]
 	path = tools/device-tree-rebasing
 	url = git://xenbits.xen.org/people/ianc/device-tree-rebasing.git
+	branch = master
