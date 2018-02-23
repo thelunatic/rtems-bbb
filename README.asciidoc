@@ -45,6 +45,11 @@ To build all necessary tools and libraries just call `./build/build.sh`. This
 will install all that is necessary to build an application into the `install`
 folder.
 
+Note that if you have problems building U-Boot and there are errors of
+redefinitions of a lot of `*fdt*` symbols, you most likely have a problem that
+some system include files collide with the ones expected by U-Boot. I had to
+uninstall my system `dtc` to solve that issue.
+
 === Application
 
 After building the toolchain, you can build the WiFi sample application. To do
