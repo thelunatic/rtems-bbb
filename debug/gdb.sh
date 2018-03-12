@@ -4,4 +4,4 @@
 SCRIPTDIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
 PROJECTDIR="${SCRIPTDIR}/../"
 
-${PROJECTDIR}/rtems-install/rtems-4.12/bin/arm-rtems4.12-gdb -x ${SCRIPTDIR}/start.gdb $@
+${PROJECTDIR}/install/rtems/5/bin/arm-rtems5-gdb -x ${SCRIPTDIR}/start.gdb $@
