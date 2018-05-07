@@ -56,7 +56,8 @@ fi
 
 waf configure \
 	--prefix="${PREFIX}" \
-	--rtems-bsps="${RTEMS_CPU}/${BSP_NAME}"
+	--rtems-bsps="${RTEMS_CPU}/${BSP_NAME}" \
+	--buildset="buildset/everything.ini"
 waf
 
 if [ $DO_INSTALL -ne 0 ]
