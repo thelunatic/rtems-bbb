@@ -19,7 +19,7 @@ $(BUILDDIR):
 	mkdir $(BUILDDIR)
 
 $(APP).exe: $(APP_OBJS)
-	$(CCLINK) $^ -lbsd -lm -o $@
+	$(CCLINK) $^ -lftpd -lbsd -lm -o $@
 
 $(APP)_sdcard.img: $(APP).exe
 	$(IMAGE_CREATOR) $< $@
