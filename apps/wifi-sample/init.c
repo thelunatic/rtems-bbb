@@ -37,7 +37,6 @@
 #include "libbsdhelper.h"
 
 #define PRIO_SHELL		150
-#define PRIO_DHCP		(RTEMS_MAXIMUM_PRIORITY - 1)
 #define PRIO_WPA		(RTEMS_MAXIMUM_PRIORITY - 1)
 #define PRIO_INIT_TASK		(RTEMS_MAXIMUM_PRIORITY - 1)
 #define PRIO_MEDIA_SERVER	200
@@ -65,7 +64,7 @@ Init(rtems_task_argument arg)
 		printf("ERROR: SD could not be mounted after timeout\n");
 	}
 
-	libbsdhelper_init_dhcpcd(PRIO_DHCP);
+	rtems_dhcpcd_start(NULL);
 	printf("Mode 1 set: Create WLAN device.\n");
 	/* Some time for USB device to be detected. */
 	rtems_task_wake_after(RTEMS_MILLISECONDS_TO_TICKS(4000));
