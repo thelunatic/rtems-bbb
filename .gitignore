@@ -1,4 +1,4 @@
 install
 b-beagleboneblack
-build/rsb-arm-*
+build/rsb-*.log
 tmp_sdcard_dir.20835
