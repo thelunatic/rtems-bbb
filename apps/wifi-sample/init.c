@@ -29,9 +29,13 @@
  * SUCH DAMAGE.
  */
 
+#include <assert.h>
 #include <stdlib.h>
+#include <sysexits.h>
 
 #include <rtems.h>
+#include <rtems/bsd/bsd.h>
+#include <rtems/dhcpcd.h>
 #include <bsp.h>
 
 #include "libbsdhelper.h"
@@ -48,13 +52,19 @@ static void
 Init(rtems_task_argument arg)
 {
 	rtems_status_code sc;
+	int exit_code;
 
 	(void)arg;
 
 	puts("\nRTEMS WiFi Demo\n");
 	libbsdhelper_init_sd_card(PRIO_MEDIA_SERVER);
 	libbsdhelper_lower_self_prio(PRIO_INIT_TASK);
-	libbsdhelper_init_libbsd();
+	sc = rtems_bsd_initialize();
+	assert(sc == RTEMS_SUCCESSFUL);
+	exit_code = rtems_bsd_ifconfig_lo0();
+	assert(exit_code == EX_OK);
+	sc = rtems_dhcpcd_start(NULL);
+	assert(sc == RTEMS_SUCCESSFUL);
 
 	/* Wait for the SD card */
 	sc = libbsdhelper_wait_for_sd();
@@ -64,14 +74,11 @@ Init(rtems_task_argument arg)
 		printf("ERROR: SD could not be mounted after timeout\n");
 	}
 
-	rtems_dhcpcd_start(NULL);
 	printf("Mode 1 set: Create WLAN device.\n");
 	/* Some time for USB device to be detected. */
 	rtems_task_wake_after(RTEMS_MILLISECONDS_TO_TICKS(4000));
 	libbsdhelper_create_wlandev(wlandev);
-
 	libbsdhelper_init_wpa_supplicant(wpa_supplicant_conf, PRIO_WPA);
-
 	libbsdhelper_start_shell(PRIO_SHELL);
 
 	exit(0);
