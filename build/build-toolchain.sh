@@ -31,8 +31,3 @@ cd "${RSB_DIR}/rtems"
 	--without-rtems \
 	"${RTEMS_VERSION}/rtems-${RTEMS_CPU}"
 #	--no-clean \
-
-# install waf
-mkdir -p "${PREFIX}/bin/"
-cp "${PROJECTDIR}/build/src/waf-2.0.2" "${PREFIX}/bin/waf"
-chmod 755 "${PREFIX}/bin/waf"
