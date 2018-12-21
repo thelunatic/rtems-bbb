@@ -7,7 +7,7 @@ RTEMS_CPU="arm"
 RTEMS_VERSION="5"
 TARGET="${RTEMS_CPU}-rtems${RTEMS_VERSION}"
 PREFIX="${PROJECTDIR}/install/rtems/${RTEMS_VERSION}/"
-UBOOT_CONFIG="am335x_evm"
+UBOOT_CONFIG="am335x_boneblack_defconfig"
 DTB_FILE="src/arm/am335x-boneblack.dtb"
 DTB_INSTALL_NAME="am335x-boneblack.dtb"
 

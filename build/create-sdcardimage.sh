@@ -56,7 +56,7 @@ then	echo "Usage: $0 <RTEMS executable> <image name>"
 fi
 
 executable=$1
-ubootcfg=am335x_evm
+ubootcfg=$UBOOT_CONFIG
 app=rtems-app.img
 base=`basename $executable`
 

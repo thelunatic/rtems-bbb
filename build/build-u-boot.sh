@@ -18,7 +18,7 @@ export PATH="${PREFIX}/bin:${PATH}"
 # Build
 cd "${U_BOOT_SOURCE_DIR}"
 make -j `nproc` PYTHON=python2 CROSS_COMPILE=${TARGET}- mrproper
-make -j `nproc` PYTHON=python2 CROSS_COMPILE=${TARGET}- ${UBOOT_CONFIG}_config
+make -j `nproc` PYTHON=python2 CROSS_COMPILE=${TARGET}- ${UBOOT_CONFIG}
 make -j `nproc` PYTHON=python2 CROSS_COMPILE=${TARGET}-
 
 # install files
