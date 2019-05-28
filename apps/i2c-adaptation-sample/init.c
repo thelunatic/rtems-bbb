@@ -1,14 +1,6 @@
 /*
  * Copyright (c) 2019 Vijay Kumar Banerjee
  *
- * Copyright (c) 2017 embedded brains GmbH.  All rights reserved.
- *
- *  embedded brains GmbH
- *  Dornierstr. 4
- *  82178 Puchheim
- *  Germany
- *  <rtems@embedded-brains.de>
- *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
  * are met:
@@ -43,15 +35,34 @@
 #include <rtems/irq-extension.h>
 #include <rtems/counter.h>
 #include <bsp/bbb-gpio.h>
+#include <rtems/console.h>
+#include <rtems/shell.h>
+
+
+#include <machine/rtems-bsd-commands.h>
 
 #include <bsp.h>
-
-#include "libbsdhelper.h"
 
 #define PRIO_SHELL		150
 #define PRIO_WPA		(RTEMS_MAXIMUM_PRIORITY - 1)
 #define PRIO_INIT_TASK		(RTEMS_MAXIMUM_PRIORITY - 1)
 #define PRIO_MEDIA_SERVER	200
+#define STACK_SIZE_SHELL	(64 * 1024)
+
+void
+libbsdhelper_start_shell(rtems_task_priority prio)
+{
+	rtems_status_code sc = rtems_shell_init(
+		"SHLL",
+		STACK_SIZE_SHELL,
+		prio,
+		CONSOLE_DEVICE_NAME,
+		false,
+		true,
+		NULL
+	);
+	assert(sc == RTEMS_SUCCESSFUL);
+}
 
 static void
 Init(rtems_task_argument arg)
@@ -62,26 +73,13 @@ Init(rtems_task_argument arg)
 	(void)arg;
 
 	puts("\nRTEMS I2C TEST\n");
-	libbsdhelper_init_sd_card(PRIO_MEDIA_SERVER);
-	libbsdhelper_lower_self_prio(PRIO_INIT_TASK);
+    exit_code = bbb_register_i2c_0();
+    assert(exit_code == 0);
 	sc = rtems_bsd_initialize();
 	assert(sc == RTEMS_SUCCESSFUL);
-    exit_code = bbb_register_i2c_0;
-    assert(exit_code == 0);
 
-	/* Wait for the SD card */
-	sc = libbsdhelper_wait_for_sd();
-	if (sc == RTEMS_SUCCESSFUL) {
-		printf("SD: OK\n");
-	} else {
-		printf("ERROR: SD could not be mounted after timeout\n");
-	}
-
-	//printf("Mode 1 set: Create WLAN device.\n");
 	/* Some time for USB device to be detected. */
-	rtems_task_wake_after(RTEMS_MILLISECONDS_TO_TICKS(4000));
-//	libbsdhelper_create_wlandev(wlandev);
-//	libbsdhelper_init_wpa_supplicant(wpa_supplicant_conf, PRIO_WPA);
+//	rtems_task_wake_after(RTEMS_MILLISECONDS_TO_TICKS(4000));
 	libbsdhelper_start_shell(PRIO_SHELL);
 
 	exit(0);
