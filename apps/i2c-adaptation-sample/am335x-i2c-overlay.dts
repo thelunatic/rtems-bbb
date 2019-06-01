@@ -1,0 +1,20 @@
+/dts-v1/;
+/plugin/;
+ 
+/ {
+
+    compatible = "ti,am335x", "ti,omap4-i2c", "ti,am335x-boneblack", "rtems,bsp-i2c";
+     
+    fragment@0 {
+        target = <&i2c0>;
+        __overlay__ {
+            #address-cells = <1>;
+            #size-cells = <0>;
+            compatible = "rtems,bsp-i2c", "ti,omap4-i2c";
+            status = "okay";
+            rtems,i2c-path= "/dev/i2c-0";
+            
+        };
+
+    };
+};
