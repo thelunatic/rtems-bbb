@@ -1,5 +1,5 @@
 /*
- * Copyright (c) 2019 Vijay Kumar Banerjee
+ * Copyright (c) 2019 Vijay Kumar Banerjee. All rights reserved.
  *
  * Redistribution and use in source and binary forms, with or without
  * modification, are permitted provided that the following conditions
@@ -37,7 +37,9 @@
 #include <bsp/bbb-gpio.h>
 #include <rtems/console.h>
 #include <rtems/shell.h>
-
+#include <sys/ioctl.h>
+#include <fcntl.h>
+#include <dev/iicbus/iic.h>
 
 #include <machine/rtems-bsd-commands.h>
 
@@ -48,6 +50,53 @@
 #define PRIO_INIT_TASK		(RTEMS_MAXIMUM_PRIORITY - 1)
 #define PRIO_MEDIA_SERVER	200
 #define STACK_SIZE_SHELL	(64 * 1024)
+#define I2C_BUS "/dev/iic0"
+#define EEPROM_ADDRESS 0x50
+
+int 
+read_eeprom(int address)
+{
+	int		fd;
+	int		ret;
+	uint8_t		wbuf[2];
+	uint8_t		rbuf[2];
+	struct iic_msg 	msg[2];
+	struct iic_rdwr_data rdwr;
+
+	if ((fd = open(I2C_BUS, O_RDWR)) < 0) {
+		perror("open");
+		return (-1);
+	}
+
+	msg[0].slave = EEPROM_ADDRESS << 1;
+	msg[0].flags = 0;
+	msg[0].len = 1;
+	wbuf[0] = 0xff & address;
+	msg[0].buf = wbuf;
+
+	rbuf[0] = 0;
+	rbuf[1] = 0;
+
+	msg[1].slave = (EEPROM_ADDRESS << 1) | IIC_M_RD;
+	msg[1].flags = IIC_M_RD;
+	msg[1].len = 2;
+	msg[1].buf = rbuf;
+
+	rdwr.msgs = msg;
+	rdwr.nmsgs = 2;
+
+	ret = ioctl(fd, I2CRDWR, &rdwr);
+
+	if (ret < 0) {
+		perror("ioctl(I2CRDWR)");
+		ret = (-1);
+	} else 
+		ret = (rbuf[0] << 8) + rbuf[1];
+
+	close(fd);
+
+	return (ret);
+}
 
 void
 libbsdhelper_start_shell(rtems_task_priority prio)
@@ -69,6 +118,7 @@ Init(rtems_task_argument arg)
 {
 	rtems_status_code sc;
 	int exit_code;
+    int data;
 
 	(void)arg;
 
@@ -77,6 +127,8 @@ Init(rtems_task_argument arg)
     assert(exit_code == 0);
 	sc = rtems_bsd_initialize();
 	assert(sc == RTEMS_SUCCESSFUL);
+    data = read_eeprom(0);
+    printf("%d", data);
 
 	/* Some time for USB device to be detected. */
 //	rtems_task_wake_after(RTEMS_MILLISECONDS_TO_TICKS(4000));
