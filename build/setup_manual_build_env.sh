@@ -15,7 +15,7 @@ set -e -u
 
 # find out own directory
 SCRIPTDIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-PROJECTDIR="${SCRIPTDIR}/../"
+export PROJECTDIR="${SCRIPTDIR}/../"
 
 # Configuration
 . "${SCRIPTDIR}/configuration.sh"
