@@ -17,6 +17,7 @@ LIBBSD_SOURCE_DIR="${PROJECTDIR}/libs/rtems-libbsd"
 U_BOOT_SOURCE_DIR="${PROJECTDIR}/tools/u-boot"
 NEWFS_MSDOS_SOURCE_DIR="${PROJECTDIR}/tools/newfs_msdos"
 DEVICETREE_DIR="${PROJECTDIR}/tools/device-tree-rebasing"
+DEVICETREEOVERLAY_DIR="${PROJECTDIR}/tools/devicetree-overlays"
 MTOOLS_DIR="${PROJECTDIR}/tools/mtools"
 PARTITION_DIR="${PROJECTDIR}/tools/partition"
 

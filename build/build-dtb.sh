@@ -19,6 +19,15 @@ export PREFIX
 
 # Build
 cd "${DEVICETREE_DIR}"
+export DTC_FLAGS="-@"
 make "${DTB_FILE}"
 mkdir -p "${PREFIX}/fdt/"
 cp "${DTB_FILE}" "${PREFIX}/fdt/"
+
+# Create overlays
+cd "${DEVICETREEOVERLAY_DIR}"
+for f in *.dts
+do
+	target="${PREFIX}/fdt/`sed 's/\.dts$/.dtbo/' <<<${f}`"
+	dtc -@ -o "${target}" ${f}
+done
