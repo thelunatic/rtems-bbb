@@ -22,8 +22,8 @@ end
 # Hack for JLink problems:
 # https://forum.segger.com/index.php/Thread/6140-JLinkGDBServer-issues-with-6-44d/
 python
-	import os
-	gdb.execute('set tdesc filename ' + os.environ['PROJECTDIR'] + '/debug/tdesc.xml')
+import os
+gdb.execute('set tdesc filename ' + os.environ['PROJECTDIR'] + '/debug/tdesc.xml')
 end
 
 target remote :2331
