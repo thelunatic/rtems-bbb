@@ -26,3 +26,5 @@ BSP_CONFIG_OPT="
 	--disable-networking
 	CONSOLE_POLLED=1
 	"
+
+#export CFLAGS_OPTIMIZE_V="-O0 -g"
