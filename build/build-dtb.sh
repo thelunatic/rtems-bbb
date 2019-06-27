@@ -18,7 +18,15 @@ export PATH="${PREFIX}/bin:${PATH}"
 export PREFIX
 
 # Build
+mkdir ${PREFIX}/fdt -p
 cd "${DEVICETREE_DIR}"
-make "${DTB_FILE}"
-mkdir -p "${PREFIX}/fdt/"
-cp "${DTB_FILE}" "${PREFIX}/fdt/"
+export MACHINE=arm
+./sys/tools/fdt/make_dtb.sh sys ${DTS_FILE} ${PREFIX}/fdt/
+
+# Create overlays
+cd "${DEVICETREEOVERLAY_DIR}"
+for f in *.dts
+do
+	target="${PREFIX}/fdt/`sed 's/\.dts$/.dtbo/' <<<${f}`"
+	dtc -@ -o "${target}" ${f}
+done

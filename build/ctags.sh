@@ -16,7 +16,7 @@ export PATH="${PREFIX}/bin:${PATH}"
 
 # create ctags
 TAGFILE="${PROJECTDIR}/tags"
-CTAGOPTS="-a -f ${PROJECTDIR}/tags --extra=+fq --recurse=yes"
+CTAGOPTS="-a -f ${PROJECTDIR}/tags --extras=+fq --recurse=yes"
 [[ -e "${TAGFILE}" ]] && rm "${TAGFILE}"
 
 ctags ${CTAGOPTS} "${RTEMS_SOURCE_DIR}"

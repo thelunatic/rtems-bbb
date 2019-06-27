@@ -78,14 +78,25 @@ newfs_msdos -r 1 -m 0xf8 -c 4 -F16  -h 64 -u 32 -S 512 -s $FATSIZE -o 0 ./$FATIM
 arm-rtems5-objcopy $executable -O binary $TMPDIR/${base}.bin
 gzip -9 $TMPDIR/${base}.bin
 mkimage -A arm -O linux -T kernel -a 0x80000000 -e 0x80000000 -n RTEMS -d $TMPDIR/${base}.bin.gz $TMPDIR/$app
+overlays="fdt addr 0x88000000"
+for f in "$PREFIX"/fdt/*.dtbo
+do
+	name=`basename "${f}"`
+	overlays="${overlays}; fatload mmc 0 0x88100000 ${name}; fdt resize 0x1000; fdt apply 0x88100000"
+done
 echo "setenv bootdelay 5
 uenvcmd=run boot
-boot=fatload mmc 0 0x80800000 $app ; fatload mmc 0 0x88000000 ${DTB_INSTALL_NAME} ; bootm 0x80800000 - 0x88000000" >$TMPDIR/$UENV
+boot=fatload mmc 0 0x80800000 $app ; fatload mmc 0 0x88000000 ${DTB_INSTALL_NAME} ; ${overlays} ; bootm 0x80800000 - 0x88000000" >$TMPDIR/$UENV
 
 # Copy the uboot and app image onto the FAT image
 mcopy -bsp -i $FATIMG $PREFIX/uboot/$ubootcfg/MLO ::MLO
 mcopy -bsp -i $FATIMG $PREFIX/uboot/$ubootcfg/u-boot.img ::u-boot.img
 mcopy -bsp -i $FATIMG $PREFIX/fdt/${DTB_INSTALL_NAME} ::${DTB_INSTALL_NAME}
+for f in "$PREFIX"/fdt/*.dtbo
+do
+	name=`basename "${f}"`
+	mcopy -bsp -i $FATIMG "$f" ::${name}
+done
 mcopy -bsp -i $FATIMG $TMPDIR/$app ::$app
 mcopy -bsp -i $FATIMG $TMPDIR/$UENV ::$UENV
 

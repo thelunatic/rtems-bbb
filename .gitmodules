@@ -14,7 +14,3 @@
 	path = tools/u-boot
 	url = git://git.denx.de/u-boot.git
 	branch = master
-[submodule "device-tree-rebasing"]
-	path = tools/device-tree-rebasing
-	url = git://xenbits.xen.org/people/ianc/device-tree-rebasing.git
-	branch = master

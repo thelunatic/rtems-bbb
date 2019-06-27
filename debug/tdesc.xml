@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<!-- Copyright (C) 2008 Free Software Foundation, Inc. -->
+<!-- Copying and distribution of this file, with or without modification, are permitted in any medium without royalty provided the copyright notice and this notice are preserved.  -->
+<!-- SEGGER: Add new registers only after the "SEGGER START" section in the xml file, to make sure we never get incompatible to the GDB register stream -->
+<!DOCTYPE feature SYSTEM "gdb-target.dtd">
+<target>
+  <architecture>arm</architecture>
+  <feature name="org.gnu.gdb.arm.core">
+    <reg name="r0" bitsize="32" type="uint32" group="general"/>
+    <reg name="r1" bitsize="32" type="uint32" group="general"/>
+    <reg name="r2" bitsize="32" type="uint32" group="general"/>
+    <reg name="r3" bitsize="32" type="uint32" group="general"/>
+    <reg name="r4" bitsize="32" type="uint32" group="general"/>
+    <reg name="r5" bitsize="32" type="uint32" group="general"/>
+    <reg name="r6" bitsize="32" type="uint32" group="general"/>
+    <reg name="r7" bitsize="32" type="uint32" group="general"/>
+    <reg name="r8" bitsize="32" type="uint32" group="general"/>
+    <reg name="r9" bitsize="32" type="uint32" group="general"/>
+    <reg name="r10" bitsize="32" type="uint32" group="general"/>
+    <reg name="r11" bitsize="32" type="uint32" group="general"/>
+    <reg name="r12" bitsize="32" type="uint32" group="general"/>
+    <reg name="sp" bitsize="32" type="data_ptr" group="general"/>
+    <reg name="lr" bitsize="32" type="uint32" group="general"/>
+    <reg name="pc" bitsize="32" type="code_ptr" group="general"/>
+    <reg name="cpsr" bitsize="32" type="uint32" group="general"/>
+  </feature>
+  <feature name="org.gnu.gdb.arm.vfp">
+    <reg name="fpscr" bitsize="32" type="uint32" group="float"/>
+    <reg name="d0" bitsize="64" type="ieee_double" group="float"/>
+    <reg name="d1" bitsize="64" type="ieee_double" group="float"/>
+    <reg name="d2" bitsize="64" type="ieee_double" group="float"/>
+    <reg name="d3" bitsize="64" type="ieee_double" group="float"/>
+    <reg name="d4" bitsize="64" type="ieee_double" group="float"/>
+    <reg name="d5" bitsize="64" type="ieee_double" group="float"/>
+    <reg name="d6" bitsize="64" type="ieee_double" group="float"/>
+    <reg name="d7" bitsize="64" type="ieee_double" group="float"/>
+    <reg name="d8" bitsize="64" type="ieee_double" group="float"/>
+    <reg name="d9" bitsize="64" type="ieee_double" group="float"/>
+    <reg name="d10" bitsize="64" type="ieee_double" group="float"/>
+    <reg name="d11" bitsize="64" type="ieee_double" group="float"/>
+    <reg name="d12" bitsize="64" type="ieee_double" group="float"/>
+    <reg name="d13" bitsize="64" type="ieee_double" group="float"/>
+    <reg name="d14" bitsize="64" type="ieee_double" group="float"/>
+    <reg name="d15" bitsize="64" type="ieee_double" group="float"/>
+  </feature>
+  <feature name="segger.core.mode">
+    <reg name="r8_usr" bitsize="32" type="uint32" group="mode"/>
+    <reg name="r9_usr" bitsize="32" type="uint32" group="mode"/>
+    <reg name="r10_usr" bitsize="32" type="uint32" group="mode"/>
+    <reg name="r11_usr" bitsize="32" type="uint32" group="mode"/>
+    <reg name="r12_usr" bitsize="32" type="uint32" group="mode"/>
+    <reg name="r13_usr" bitsize="32" type="uint32" group="mode"/>
+    <reg name="r14_usr" bitsize="32" type="uint32" group="mode"/>
+    <reg name="r8_fiq" bitsize="32" type="uint32" group="mode"/>
+    <reg name="r9_fiq" bitsize="32" type="uint32" group="mode"/>
+    <reg name="r10_fiq" bitsize="32" type="uint32" group="mode"/>
+    <reg name="r11_fiq" bitsize="32" type="uint32" group="mode"/>
+    <reg name="r12_fiq" bitsize="32" type="uint32" group="mode"/>
+    <reg name="r13_fiq" bitsize="32" type="uint32" group="mode"/>
+    <reg name="r14_fiq" bitsize="32" type="uint32" group="mode"/>
+    <reg name="spsr_fiq" bitsize="32" type="uint32" group="mode"/>
+    <reg name="r13_irq" bitsize="32" type="uint32" group="mode"/>
+    <reg name="r14_irq" bitsize="32" type="uint32" group="mode"/>
+    <reg name="spsr_irq" bitsize="32" type="uint32" group="mode"/>
+    <reg name="r13_svc" bitsize="32" type="uint32" group="mode"/>
+    <reg name="r14_svc" bitsize="32" type="uint32" group="mode"/>
+    <reg name="spsr_svc" bitsize="32" type="uint32" group="mode"/>
+    <reg name="r13_abt" bitsize="32" type="uint32" group="mode"/>
+    <reg name="r14_abt" bitsize="32" type="uint32" group="mode"/>
+    <reg name="spsr_abt" bitsize="32" type="uint32" group="mode"/>
+    <reg name="r13_und" bitsize="32" type="uint32" group="mode"/>
+    <reg name="r14_und" bitsize="32" type="uint32" group="mode"/>
+    <reg name="spsr_und" bitsize="32" type="uint32" group="mode"/>
+  </feature>
+<!-- SEGGER START -->
+</target>

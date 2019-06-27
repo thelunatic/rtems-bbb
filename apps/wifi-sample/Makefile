@@ -27,7 +27,4 @@ $(APP)_sdcard.img: $(APP).exe
 clean:
 	rm -rf $(BUILDDIR)
 
-debugoutput:
-	echo $(PATH)
-
 -include $(APP_DEPS)

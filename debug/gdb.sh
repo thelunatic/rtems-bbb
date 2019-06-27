@@ -2,6 +2,6 @@
 
 # find out own directory
 SCRIPTDIR=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd)
-PROJECTDIR="${SCRIPTDIR}/../"
+export PROJECTDIR="${SCRIPTDIR}/../"
 
 ${PROJECTDIR}/install/rtems/5/bin/arm-rtems5-gdb -x ${SCRIPTDIR}/start.gdb $@

@@ -37,6 +37,7 @@
 #include <rtems/bsd/bsd.h>
 #include <rtems/dhcpcd.h>
 #include <bsp.h>
+#include <bsp/i2c.h>
 
 #include "libbsdhelper.h"
 
@@ -57,6 +58,9 @@ Init(rtems_task_argument arg)
 	(void)arg;
 
 	puts("\nRTEMS WiFi Demo\n");
+	exit_code = bbb_register_i2c_0();
+	assert(exit_code == 0);
+
 	libbsdhelper_init_sd_card(PRIO_MEDIA_SERVER);
 	libbsdhelper_lower_self_prio(PRIO_INIT_TASK);
 	sc = rtems_bsd_initialize();
@@ -137,6 +141,7 @@ Init(rtems_task_argument arg)
 
 #define CONFIGURE_SHELL_USER_COMMANDS \
   &bsp_interrupt_shell_command, \
+  &rtems_shell_I2C_Command, \
   &rtems_shell_ARP_Command, \
   &rtems_shell_PFCTL_Command, \
   &rtems_shell_PING_Command, \
