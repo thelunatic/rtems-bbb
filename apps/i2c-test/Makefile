@@ -1,7 +1,8 @@
-RTEMS_ROOT ?= $(PWD)/../../install/rtems/5
+RTEMS_ROOT ?= $(RTEMS_PREFIX)
 RTEMS_BSP ?= beagleboneblack
 
-include $(RTEMS_ROOT)/make/custom/$(RTEMS_BSP).mk
+
+include $(PWD)/../../install/rtems/5/make/custom/$(RTEMS_BSP).mk
 
 CFLAGS += -O0
 
