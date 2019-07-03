@@ -22,10 +22,11 @@ $(APP).exe: $(APP_OBJS)
 	$(CCLINK) $^ -lftpd -lbsd -lm -lz -o $@
 
 $(APP)_sdcard.img: $(APP).exe
+	./create_dtb.sh 
 	$(IMAGE_CREATOR) $< $@
 
 clean:
-	rm -rf $(BUILDDIR)
+	rm -rf $(BUILDDIR) tmp_sdcard_dir.*
 
 debugoutput:
 	echo $(PATH)

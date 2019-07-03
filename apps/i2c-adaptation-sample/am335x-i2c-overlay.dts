@@ -3,13 +3,11 @@
  
 / {
 
-    compatible = "ti,am335x", "ti,omap4-i2c", "ti,am335x-boneblack", "rtems,bsp-i2c";
+    compatible = "ti,am335x-bone-black", "ti,am335x-bone", "ti,am33xx";
      
     fragment@0 {
         target = <&i2c0>;
         __overlay__ {
-            #address-cells = <1>;
-            #size-cells = <0>;
             compatible = "rtems,bsp-i2c", "ti,omap4-i2c";
             status = "okay";
             rtems,i2c-path= "/dev/i2c-0";

@@ -79,7 +79,7 @@ arm-rtems5-objcopy $executable -O binary $TMPDIR/${base}.bin
 gzip -9 $TMPDIR/${base}.bin
 mkimage -A arm -O linux -T kernel -a 0x80000000 -e 0x80000000 -n RTEMS -d $TMPDIR/${base}.bin.gz $TMPDIR/$app
 overlays="fdt addr 0x88000000"
-for f in "$PREFIX"/fdt/*.dtbo
+for f in "$(pwd)"/*.dtbo
 do
 	name=`basename "${f}"`
 	overlays="${overlays}; fatload mmc 0 0x88100000 ${name}; fdt resize 0x1000; fdt apply 0x88100000"
@@ -91,8 +91,8 @@ boot=fatload mmc 0 0x80800000 $app ; fatload mmc 0 0x88000000 ${DTB_INSTALL_NAME
 # Copy the uboot and app image onto the FAT image
 mcopy -bsp -i $FATIMG $PREFIX/uboot/$ubootcfg/MLO ::MLO
 mcopy -bsp -i $FATIMG $PREFIX/uboot/$ubootcfg/u-boot.img ::u-boot.img
-mcopy -bsp -i $FATIMG $PREFIX/fdt/${DTB_INSTALL_NAME} ::${DTB_INSTALL_NAME}
-for f in "$PREFIX"/fdt/*.dtbo
+mcopy -bsp -i $FATIMG $(pwd)/${DTB_INSTALL_NAME} ::${DTB_INSTALL_NAME}
+for f in "$(pwd)"/*.dtbo
 do
 	name=`basename "${f}"`
 	mcopy -bsp -i $FATIMG "$f" ::${name}
