@@ -291,6 +291,13 @@ void rect (int x1, int y1, int x2, int y2, unsigned colidx)
 	line (x1, y2, x1, y1, colidx);
 }
 
+void solidrect (int x1, int y1, int x2, int y2, unsigned colidx)
+{
+	for(int y=y1; y<=y2; y++) {
+		line (x1, y, x2, y, colidx);
+	}
+}
+
 void
 libbsdhelper_start_shell(rtems_task_priority prio)
 {
@@ -322,7 +329,11 @@ Init(rtems_task_argument arg)
 	exit_code = open_framebuffer();
 	assert(exit_code == 0);
 	setcolor (4, 0xff0000);
-	rect(100, 200, 200, 300, 4);
+	solidrect(100, 100, 200, 200, 4);
+	setcolor (5, 0x00ff00);
+	solidrect(100, 200, 200, 400, 5);
+	setcolor (6, 0x0000ff);
+	solidrect(100, 300, 200, 400, 6);
 	exit_code = close_framebuffer();
 	/* Some time for USB device to be detected. */
 //	rtems_task_wake_after(RTEMS_MILLISECONDS_TO_TICKS(4000));

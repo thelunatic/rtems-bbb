@@ -5,7 +5,7 @@ IMAGE_CREATOR ?= $(PWD)/../../build/create-sdcardimage.sh
 
 include $(PWD)/../../install/rtems/5/make/custom/$(RTEMS_BSP).mk
 
-CFLAGS += -O2
+CFLAGS += -O0
 #LDFLAGS +=
 
 APP = $(BUILDDIR)/fb-sample
