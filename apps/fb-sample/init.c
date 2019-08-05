@@ -45,6 +45,8 @@
 
 #include <bsp.h>
 
+#include "RTEMSlogo.h"
+
 #define PRIO_SHELL		150
 #define PRIO_WPA		(RTEMS_MAXIMUM_PRIORITY - 1)
 #define PRIO_INIT_TASK		(RTEMS_MAXIMUM_PRIORITY - 1)
@@ -80,13 +82,13 @@ union multiptr {
 	unsigned long *p32;
 };
 
-static int fbsize;
+static size_t fbsize;
 static unsigned char *fbuffer;
 static unsigned char **line_addr;
 static int fb_fd=0;
 static int bytes_per_pixel;
 static unsigned colormap [256];
-uint32_t xres, yres;
+unsigned xres, yres;
 
 static char *defaultfbdevice = "/dev/fb0";
 static char *fbdevice = NULL;
@@ -96,7 +98,7 @@ int open_framebuffer(void)
 	int y;
 	unsigned addr;
 	struct fbtype fb;
-	int line_length;
+	unsigned line_length;
 
 	if ((fbdevice = getenv ("TSLIB_FBDEVICE")) == NULL)
 		fbdevice = defaultfbdevice;
@@ -118,11 +120,11 @@ int open_framebuffer(void)
 		return -1;
 	}
 
-	xres = fb.fb_width;
-	yres = fb.fb_height;
+	xres = (unsigned) fb.fb_width;
+	yres = (unsigned) fb.fb_height;
 
-	int pagemask = getpagesize() - 1;
-	fbsize = ((int) line_length*yres + pagemask) & ~pagemask;
+	unsigned pagemask = (unsigned) getpagesize() - 1;
+	fbsize = ((line_length*yres + pagemask) & ~pagemask);
 
 	fbuffer = (unsigned char *)mmap(0, fbsize, PROT_READ | PROT_WRITE, MAP_SHARED, fb_fd, 0);
 	if (fbuffer == (unsigned char *)-1) {
@@ -133,7 +135,7 @@ int open_framebuffer(void)
 	memset(fbuffer,0, fbsize);
 
 	bytes_per_pixel = (fb.fb_depth + 7) / 8;
-	line_addr = malloc (sizeof (uint32_t) * fb.fb_height);
+	line_addr = malloc (sizeof (char*) * yres);
 	addr = 0;
 	for (y = 0; y < fb.fb_height; y++, addr += line_length)
 		line_addr [y] = fbuffer + addr;
@@ -153,7 +155,7 @@ int close_framebuffer(void)
 void setcolor(unsigned colidx, unsigned value)
 {
 	unsigned res;
-	unsigned char red, green, blue;
+	unsigned red, green, blue;
 
 #ifdef DEBUG
 	if (colidx > 255) {
@@ -180,7 +182,21 @@ void setcolor(unsigned colidx, unsigned value)
 		res = value;
 
 	}
-		colormap [colidx] = res;
+	colormap [colidx] = res;
+}
+
+void setcolor_rgb(
+    unsigned colidx,
+    unsigned red,
+    unsigned green,
+    unsigned blue
+)
+{
+	unsigned value;
+
+	value = (red << 16) | (green << 8) | blue;
+
+	setcolor(colidx, value);
 }
 
 static inline void __setpixel (union multiptr loc, unsigned xormode, unsigned color)
@@ -189,27 +205,27 @@ static inline void __setpixel (union multiptr loc, unsigned xormode, unsigned co
 	case 1:
 	default:
 		if (xormode)
-			*loc.p8 ^= color;
+			*loc.p8 ^= (unsigned char)color;
 		else
-			*loc.p8 = color;
+			*loc.p8 = (unsigned char)color;
 		pwrite(fb_fd, loc.p8, sizeof(loc.p16), 0);
 		break;
 	case 2:
 		if (xormode)
-			*loc.p16 ^= color;
+			*loc.p16 ^= (unsigned short)color;
 		else
-			*loc.p16 = color;
+			*loc.p16 = (unsigned short)color;
 		pwrite(fb_fd, loc.p16, sizeof(loc.p16), 0);
 		break;
 	case 3:
 		if (xormode) {
-			*loc.p8++ ^= (color >> 16) & 0xff;
-			*loc.p8++ ^= (color >> 8) & 0xff;
-			*loc.p8 ^= color & 0xff;
+			*loc.p8++ ^= (unsigned char)(color >> 16) & 0xff;
+			*loc.p8++ ^= (unsigned char)(color >> 8) & 0xff;
+			*loc.p8 ^= (unsigned char)color & 0xff;
 		} else {
-			*loc.p8++ = (color >> 16) & 0xff;
-			*loc.p8++ = (color >> 8) & 0xff;
-			*loc.p8 = color & 0xff;
+			*loc.p8++ = (unsigned char)(color >> 16) & 0xff;
+			*loc.p8++ = (unsigned char)(color >> 8) & 0xff;
+			*loc.p8 = (unsigned char)color & 0xff;
 		}
 		pwrite(fb_fd, loc.p8, sizeof(loc.p8), 0);
 		break;
@@ -299,6 +315,35 @@ void solidrect (int x1, int y1, int x2, int y2, unsigned colidx)
 }
 
 void
+logo (unsigned screen_x, unsigned screen_y)
+{
+	size_t i;
+	int x, y;
+	int offset_x, offset_y;
+	char *data = logo_data;
+
+	assert(screen_x > logo_width);
+	assert(screen_y > logo_height);
+
+	offset_x = (int)(screen_x - logo_width) / 2;
+	offset_y = (int)(screen_y - logo_height) / 2;
+
+	for(i = 0;
+	    i < sizeof(logo_data_cmap)/sizeof(logo_data_cmap[0]);
+	    ++i) {
+		setcolor_rgb(i, logo_data_cmap[i][0],
+		    logo_data_cmap[i][1], logo_data_cmap[i][2]);
+	}
+
+	for(y = 0; y < (int)logo_height; ++y) {
+		for(x = 0; x < (int)logo_width; ++x) {
+			pixel(x+offset_x, y+offset_y, *data);
+			++data;
+		}
+	}
+}
+
+void
 libbsdhelper_start_shell(rtems_task_priority prio)
 {
 	rtems_status_code sc = rtems_shell_init(
@@ -328,12 +373,7 @@ Init(rtems_task_argument arg)
 	assert(sc == RTEMS_SUCCESSFUL);
 	exit_code = open_framebuffer();
 	assert(exit_code == 0);
-	setcolor (4, 0xff0000);
-	solidrect(100, 100, 200, 200, 4);
-	setcolor (5, 0x00ff00);
-	solidrect(100, 200, 200, 400, 5);
-	setcolor (6, 0x0000ff);
-	solidrect(100, 300, 200, 400, 6);
+	logo(xres, yres);
 	exit_code = close_framebuffer();
 	/* Some time for USB device to be detected. */
 //	rtems_task_wake_after(RTEMS_MILLISECONDS_TO_TICKS(4000));
