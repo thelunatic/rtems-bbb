@@ -11,8 +11,13 @@
             compatible = "rtems,bsp-i2c", "ti,omap4-i2c";
             status = "okay";
             rtems,i2c-path= "/dev/i2c-0";
+			rtems-pinctrl-0=< 0x2e >;
+			tda19988{
+				rtems-pinctrl-0= < 0x2d >;
+			};
             
         };
 
     };
+
 };
