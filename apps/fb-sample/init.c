@@ -208,14 +208,12 @@ static inline void __setpixel (union multiptr loc, unsigned xormode, unsigned co
 			*loc.p8 ^= (unsigned char)color;
 		else
 			*loc.p8 = (unsigned char)color;
-		pwrite(fb_fd, loc.p8, sizeof(loc.p16), 0);
 		break;
 	case 2:
 		if (xormode)
 			*loc.p16 ^= (unsigned short)color;
 		else
 			*loc.p16 = (unsigned short)color;
-		pwrite(fb_fd, loc.p16, sizeof(loc.p16), 0);
 		break;
 	case 3:
 		if (xormode) {
@@ -227,14 +225,12 @@ static inline void __setpixel (union multiptr loc, unsigned xormode, unsigned co
 			*loc.p8++ = (unsigned char)(color >> 8) & 0xff;
 			*loc.p8 = (unsigned char)color & 0xff;
 		}
-		pwrite(fb_fd, loc.p8, sizeof(loc.p8), 0);
 		break;
 	case 4:
 		if (xormode)
 			*loc.p32 ^= color;
 		else
 			*loc.p32 = color;
-		pwrite(fb_fd, loc.p32, sizeof(loc.p32), 0);
 		break;
 	}
 }
