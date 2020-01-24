@@ -363,8 +363,6 @@ Init(rtems_task_argument arg)
 	(void)arg;
 
 	puts("\nRTEMS I2C TEST\n");
-	exit_code = bbb_register_i2c_0();
-	assert(exit_code == 0);
 	sc = rtems_bsd_initialize();
 	assert(sc == RTEMS_SUCCESSFUL);
 	exit_code = open_framebuffer();

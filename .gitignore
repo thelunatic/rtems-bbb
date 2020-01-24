@@ -3,3 +3,4 @@ b-beagleboneblack
 build/rsb-*.log
 tmp_sdcard_dir.20835
 *.dtb
+tools/devicetree-freebsd-export/sys
